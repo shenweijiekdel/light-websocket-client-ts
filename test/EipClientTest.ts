@@ -2,20 +2,16 @@ import {BrowserPushClient} from './BrowserPushClient';
 
 describe('test', () => {
     it('client', (done) => {
-        const client = new BrowserPushClient('ws://localhost:8988/endpoint');
-        client.onClose(() => onOpen);
-        client.onOpen(() => onClose);
+        const client = new BrowserPushClient('xx');
+        client.onClose(() => onClose);
+        client.onOpen(() => onOpen);
         client.onMessage((message: any) => onMessage);
         client.connect();
-        setTimeout(() => {
-            client.close();
-            done();
-        }, 1500);
     });
 });
 
 function onOpen() {
-    console.log('onClose');
+    console.log('onOpen');
 }
 
 

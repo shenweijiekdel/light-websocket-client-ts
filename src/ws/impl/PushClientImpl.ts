@@ -59,6 +59,10 @@ export class PushClientImpl extends AbstractPushClient implements BasePushClient
     }
 
     close(): void {
+        if (!this.connected) {
+            return;
+        }
+
         if (this.ws != null) {
             this.ws.close();
             this.handleClosed();
