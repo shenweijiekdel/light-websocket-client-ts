@@ -1,4 +1,4 @@
-import {BrowserPushClient} from './BrowserPushClient';
+import {BrowserPushClient} from '../src/ws/impl/BrowserPushClient';
 
 describe('test', () => {
     it('client', (done) => {
