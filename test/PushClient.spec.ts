@@ -1,4 +1,4 @@
-import {BrowserPushClient} from '../src/ws/impl/BrowserPushClient';
+import {BrowserPushClient} from '../src';
 
 describe('test', () => {
     it('client', (done) => {
@@ -22,3 +22,10 @@ function onClose() {
 function onMessage(message: any) {
     console.log('onMessage: ', message);
 }
+
+describe('1', () => {
+    it('2', (done) => {
+        const buf = Buffer.alloc(1);
+        buf.write(JSON.stringify({a: 'a'}));
+    });
+});

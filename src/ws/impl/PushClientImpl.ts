@@ -20,11 +20,11 @@ export class PushClientImpl extends AbstractPushClient implements BasePushClient
     private connected = false;
     private ws: any | null = null;
     private disconnectHandler: (() => void) = () => {
-    }
+    };
     private connectHandler: () => void = () => {
-    }
-    private messageHandler: (message: any) => void = () => {
-    }
+    };
+    private messageHandler: (message: string) => void = () => {
+    };
 
     constructor(url: string, protocol?: string[], options ?: Options) {
         super();
@@ -184,7 +184,7 @@ export class PushClientImpl extends AbstractPushClient implements BasePushClient
 
     private handleMessage(message: Message) {
         if (this.messageHandler != null) {
-            this.messageHandler(message);
+            this.messageHandler(message.payload);
         }
     }
 }

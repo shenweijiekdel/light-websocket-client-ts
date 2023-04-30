@@ -1,6 +1,6 @@
 import {Message, Ping, Pong, Stanza} from './Stanza';
 import {StanzaType} from './StanzaType';
-
+import {Buffer} from 'buffer/';
 
 export class StanzaCodec {
 
@@ -21,9 +21,9 @@ export class StanzaCodec {
     }
 
     public static decode(data: Uint8Array): Stanza | null {
-        const buffer = Buffer.from(data);
+        const buf = Buffer.from(data);
 
-        switch (buffer.readUInt8()) {
+        switch (buf.readUInt8(0)) {
             case StanzaType.PING:
                 return StanzaCodec.decodePing();
 
@@ -31,7 +31,7 @@ export class StanzaCodec {
                 return StanzaCodec.decodePong();
 
             case StanzaType.MESSAGE:
-                return StanzaCodec.decodeMessage(buffer);
+                return StanzaCodec.decodeMessage(Buffer.from(buf.buffer.slice(1)));
 
             default:
                 return null;
@@ -39,22 +39,17 @@ export class StanzaCodec {
     }
 
     private static encodeMessage(message: Message): Uint8Array {
-        const buffer = Buffer.alloc(1, message.payload);
-        buffer.writeUInt8(StanzaType.MESSAGE);
-        buffer.write(message.payload);
-        return buffer;
+        const buf = Buffer.from([StanzaType.MESSAGE]);
+        buf.write(message.payload);
+        return buf;
     }
 
     private static encodePing(): Uint8Array {
-        const buffer = Buffer.alloc(1);
-        buffer.writeUInt8(StanzaType.PING);
-        return buffer;
+        return Buffer.from([StanzaType.PING]);
     }
 
     private static encodePong(): Uint8Array {
-        const buffer = Buffer.alloc(1);
-        buffer.writeUInt8(StanzaType.PONG);
-        return buffer;
+        return Buffer.from([StanzaType.PONG]);
     }
 
     private static decodePing(): Ping {
@@ -65,7 +60,7 @@ export class StanzaCodec {
         return new Pong();
     }
 
-    private static decodeMessage(data: Uint8Array): Message {
-        return new Message(data);
+    private static decodeMessage(data: Buffer): Message {
+        return new Message(new TextDecoder().decode(data.buffer));
     }
 }

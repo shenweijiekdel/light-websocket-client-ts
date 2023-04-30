@@ -17,9 +17,9 @@ export class Pong extends Stanza {
 }
 
 export class Message extends Stanza {
-    private readonly _payload: any;
+    private readonly _payload: string;
 
-    constructor(payload: any) {
+    constructor(payload: string) {
         super();
         this._payload = payload;
     }
@@ -28,7 +28,7 @@ export class Message extends Stanza {
         return StanzaType.MESSAGE;
     }
 
-    get payload(): any {
+    get payload(): string {
         return this._payload;
     }
 }
