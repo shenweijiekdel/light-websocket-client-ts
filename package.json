@@ -1,6 +1,6 @@
 {
   "name": "light-websocket-client-ts",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "轻量 Websocket 封装",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -4,6 +4,6 @@ export interface ReconnectHandler {
 
     onConnect(): void;
 
-    onDisconnected(): void;
+    onDisconnect(): void;
 }
 

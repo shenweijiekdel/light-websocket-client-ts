@@ -1,10 +1,14 @@
-import {Message, Ping, Pong, Stanza} from './Stanza';
+import {Kickoff, Message, Ping, Pong, Stanza} from './Stanza';
 import {StanzaType} from './StanzaType';
 import {Buffer} from 'buffer/';
 
 export class StanzaCodec {
 
     public static encode(stanza: Stanza): Uint8Array | null {
+        if (stanza instanceof Kickoff) {
+            return this.encodeKickoff();
+        }
+
         if (stanza instanceof Ping) {
             return this.encodePing();
         }
@@ -24,6 +28,9 @@ export class StanzaCodec {
         const buf = Buffer.from(data);
 
         switch (buf.readUInt8(0)) {
+            case StanzaType.KICKOFF:
+                return StanzaCodec.decodeKickoff();
+
             case StanzaType.PING:
                 return StanzaCodec.decodePing();
 
@@ -44,6 +51,10 @@ export class StanzaCodec {
         return buf;
     }
 
+    private static encodeKickoff(): Uint8Array {
+        return Buffer.from([StanzaType.KICKOFF]);
+    }
+
     private static encodePing(): Uint8Array {
         return Buffer.from([StanzaType.PING]);
     }
@@ -58,6 +69,10 @@ export class StanzaCodec {
 
     private static decodePong(): Pong {
         return new Pong();
+    }
+
+    private static decodeKickoff(): Kickoff {
+        return new Kickoff();
     }
 
     private static decodeMessage(data: Buffer): Message {

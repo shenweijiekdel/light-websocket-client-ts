@@ -16,6 +16,12 @@ export class Pong extends Stanza {
     }
 }
 
+export class Kickoff extends Stanza {
+    stanzaType(): StanzaType {
+        return StanzaType.KICKOFF;
+    }
+}
+
 export class Message extends Stanza {
     private readonly _payload: string;
 

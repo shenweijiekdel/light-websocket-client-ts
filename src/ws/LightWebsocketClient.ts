@@ -8,8 +8,8 @@ export interface LightWebsocketClient {
 
     onMessage(handler: (message: any) => void): void;
 
-    onConnected(handler: () => void): void;
+    onConnect(handler: () => void): void;
 
-    onDisconnected(handler: () => void): void;
+    onDisconnect(handler: () => void): void;
 }
 

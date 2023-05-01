@@ -21,7 +21,7 @@ export class BackoffReconnectHandler implements ReconnectHandler {
         this.interval = this.minInterval;
     }
 
-    onDisconnected() {
+    onDisconnect() {
         if (this.enable) {
             setTimeout(() => this.client.connect(), this.interval);
             this.resetInterval();

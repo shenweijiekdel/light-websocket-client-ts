@@ -3,11 +3,11 @@ import {CookieNodeLightWebsocketClient} from './CookiedNodeLigitWebsocketClient'
 describe('test', () => {
     it('client', (done) => {
         // beforeEach(() => {
-        //     this.timeout(0);
+        //     this.setTimeout(done, 0);
         // });
         const client = new CookieNodeLightWebsocketClient('http://localhost:8080/push/endpoint?csrf=Jk38deaiEe28oobm636OOA');
-        client.onDisconnected(onClose);
-        client.onConnected(onOpen);
+        client.onDisconnect(onClose);
+        client.onConnect(onOpen);
         client.onMessage(onMessage);
         client.connect();
     });

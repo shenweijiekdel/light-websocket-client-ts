@@ -1,7 +1,6 @@
-import {Stanza} from './Stanza';
-
 export enum StanzaType {
-    MESSAGE = 0x04,
+    KICKOFF = 0x03,
+    MESSAGE,
     PING,
     PONG
 }

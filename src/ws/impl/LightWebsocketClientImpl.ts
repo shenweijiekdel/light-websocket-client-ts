@@ -1,5 +1,5 @@
 import {LightWebsocketClient} from '../LightWebsocketClient';
-import {Message, Ping, Pong, Stanza} from '../../stanza/Stanza';
+import {Kickoff, Message, Ping, Pong, Stanza} from '../../stanza/Stanza';
 import {StanzaCodec} from '../../stanza/StanzaCodec';
 import {Options} from '../Options';
 import {AbstractLightWebsocketClient} from './AbstractLightWebsocketClient';
@@ -40,7 +40,7 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
     }
 
     createWebsocket(url: string, protocols?: string[] | undefined): any {
-        throw new Error('Method not implemented.');
+        return new WebSocket(url, protocols);
     }
 
     connect(): void {
@@ -69,11 +69,11 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
         }
     }
 
-    onConnected(handler: () => void): void {
+    onConnect(handler: () => void): void {
         this.connectHandler = handler;
     }
 
-    onDisconnected(handler: () => void) {
+    onDisconnect(handler: () => void) {
         this.disconnectHandler = handler;
     }
 
@@ -103,7 +103,7 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
             this.stopIdleTimer();
             this.ws = null;
             this.connected = false;
-            this.reconnectHandler.onDisconnected();
+            this.reconnectHandler.onDisconnect();
             this.disconnectHandler();
         }
     }
@@ -138,6 +138,10 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
 
         if (stanza instanceof Message) {
             this.handleMessage(stanza);
+        }
+
+        if (stanza instanceof Kickoff) {
+            return this.handleKickoff();
         }
     }
 
@@ -174,7 +178,7 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
     }
 
     private handleError(err: any) {
-        this.reconnectHandler.onDisconnected();
+        this.reconnectHandler.onDisconnect();
         console.log('handleError: ', err);
     }
 
@@ -186,6 +190,10 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
         if (this.messageHandler != null) {
             this.messageHandler(message.payload);
         }
+    }
+
+    private handleKickoff() {
+        this.disconnect();
     }
 }
 
