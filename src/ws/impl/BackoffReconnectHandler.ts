@@ -1,15 +1,15 @@
 import {ReconnectHandler} from '../ReconnectHandler';
-import {BasePushClient} from '../BasePushClient';
+import {LightWebsocketClient} from '../LightWebsocketClient';
 
 export class BackoffReconnectHandler implements ReconnectHandler {
 
-    private client: BasePushClient;
+    private client: LightWebsocketClient;
     private interval: number;
     private enable: boolean;
     private readonly minInterval: number;
     private readonly maxInterval: number;
 
-    constructor(client: BasePushClient, enable: boolean, minInterval: number, maxInterval: number) {
+    constructor(client: LightWebsocketClient, enable: boolean, minInterval: number, maxInterval: number) {
         this.client = client;
         this.enable = enable;
         this.minInterval = minInterval;

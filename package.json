@@ -1,6 +1,6 @@
 {
   "name": "light-websocket-client-ts",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "轻量 Websocket 封装",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,18 +10,17 @@
     "build": "tsc"
   },
   "keywords": [
-    "eip",
     "websocket",
     "async"
   ],
   "author": "shenweijie@openviewtech.com",
   "license": "ISC",
   "dependencies": {
-    "buffer": "^6.0.3",
-    "ws": "^7.0.0",
-    "@types/ws": "^6.0.1"
+    "buffer": "^6.0.3"
   },
   "devDependencies": {
+    "@types/ws": "^6.0.1",
+    "ws": "^7.0.0",
     "typescript": "^5.0.4",
     "ts-node": "^10.9.1",
     "@types/mocha": "^2.2.48",

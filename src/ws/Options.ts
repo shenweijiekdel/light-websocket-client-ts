@@ -3,7 +3,7 @@ export class Options {
     public static readonly DEFAULT_IDLE_TIMEOUT = 10000;
     public static readonly DEFAULT_PING_TIMES = 3;
     public static readonly DEFAULT_RECONNECT_MIN_INTERVAL = 100;
-    public static readonly DEFAULT_RECONNECT_MAX_INTERVAL = 20000;
+    public static readonly DEFAULT_RECONNECT_MAX_INTERVAL = 10000;
     public static readonly DEFAULT_AUTO_RECONNECT = true;
 
     private _idleTimeout: number = Options.DEFAULT_IDLE_TIMEOUT;

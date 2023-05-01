@@ -1,19 +1,19 @@
-import {BasePushClient} from '../BasePushClient';
+import {LightWebsocketClient} from '../LightWebsocketClient';
 import {Message, Ping, Pong, Stanza} from '../../stanza/Stanza';
 import {StanzaCodec} from '../../stanza/StanzaCodec';
 import {Options} from '../Options';
-import {AbstractPushClient} from './AbstractPushClient';
+import {AbstractLightWebsocketClient} from './AbstractLightWebsocketClient';
 import {ReconnectHandler} from '../ReconnectHandler';
 import {BackoffReconnectHandler} from './BackoffReconnectHandler';
 
-export class PushClientImpl extends AbstractPushClient implements BasePushClient {
+export class LightWebsocketClientImpl extends AbstractLightWebsocketClient implements LightWebsocketClient {
 
-    private readonly pingInterval: number;
     private readonly url: string;
     private readonly protocol?: string[];
+    private readonly pingInterval: number;
 
-    private reconnectHandler: ReconnectHandler;
     private options: Options;
+    private reconnectHandler: ReconnectHandler;
     private idleTimerId: NodeJS.Timeout | null = null;
     private pingTimerId: NodeJS.Timeout | null = null;
 
@@ -69,11 +69,11 @@ export class PushClientImpl extends AbstractPushClient implements BasePushClient
         }
     }
 
-    onOpen(handler: () => void): void {
+    onConnected(handler: () => void): void {
         this.connectHandler = handler;
     }
 
-    onClose(handler: () => void) {
+    onDisconnected(handler: () => void) {
         this.disconnectHandler = handler;
     }
 
@@ -113,7 +113,7 @@ export class PushClientImpl extends AbstractPushClient implements BasePushClient
             return;
         }
 
-        console.log(new Date() + ' onMessage: ');
+        console.log(new Date() + ' handleFrame: ', message.data);
         this.startIdleTimer();
         this.startPingTimer();
 

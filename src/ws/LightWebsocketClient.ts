@@ -1,4 +1,4 @@
-export interface BasePushClient {
+export interface LightWebsocketClient {
 
     connect(): void;
 
@@ -8,8 +8,8 @@ export interface BasePushClient {
 
     onMessage(handler: (message: any) => void): void;
 
-    onOpen(handler: () => void): void;
+    onConnected(handler: () => void): void;
 
-    onClose(handler: () => void): void;
+    onDisconnected(handler: () => void): void;
 }
 
