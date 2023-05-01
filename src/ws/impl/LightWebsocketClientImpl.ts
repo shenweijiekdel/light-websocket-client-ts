@@ -121,10 +121,23 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
             if (message.data instanceof Uint8Array) {
                 this.handleStanza(StanzaCodec.decode(message.data));
             }
+
+            if (message.data instanceof ArrayBuffer) {
+                this.handleStanza(StanzaCodec.decode(new Uint8Array(message.data)));
+            }
+
+            if (message.data instanceof Blob) {
+                this.handleBlob(message.data);
+            }
         } catch (err) {
             console.error('handleStanza error. skip: ', err);
             return;
         }
+    }
+
+    private handleBlob(data: Blob): void {
+        data.arrayBuffer()
+            .then(x => this.handleStanza(StanzaCodec.decode(new Uint8Array(x))));
     }
 
     private handleStanza(stanza: Stanza | null): void {
