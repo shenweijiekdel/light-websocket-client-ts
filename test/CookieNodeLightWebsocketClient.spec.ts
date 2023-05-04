@@ -5,7 +5,7 @@ describe('test', () => {
         // beforeEach(() => {
         //     this.setTimeout(done, 0);
         // });
-        const client = new CookieNodeLightWebsocketClient('http://localhost:8080/push/endpoint?csrf=Jk38deaiEe28oobm636OOA');
+        const client = new CookieNodeLightWebsocketClient('ws://localhost:8080/push/endpoint?csrf=Jk38deaiEe28oobm636OOA');
         client.onDisconnect(onClose);
         client.onConnect(onOpen);
         client.onMessage(onMessage);
