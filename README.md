@@ -32,7 +32,7 @@ $ npm install light-websocket-client-ts --saved
 ```typescript
 import {LightWebsocketClientImpl} from 'light-websocket-client-ts';
 
-const client = new LightWebsocketCLientImpl('ws://xxx/xxx');
+const client = new LightWebsocketClientImpl('ws://xxx/xxx');
 client.onDisconnect(onDisconnect);
 client.onConnect(onConnect);
 client.onMessage(onMessage);
