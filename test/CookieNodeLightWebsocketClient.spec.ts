@@ -14,14 +14,14 @@ describe('test', () => {
 });
 
 function onOpen() {
-    console.log('onOpen');
+    this.log('onOpen');
 }
 
 
 function onClose() {
-    console.log('onClose');
+    this.log('onClose');
 }
 
 function onMessage(message: any) {
-    console.log('onMessage: ', message);
+    this.log('onMessage: ', message);
 }

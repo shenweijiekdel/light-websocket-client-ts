@@ -5,13 +5,19 @@ export class Options {
     public static readonly DEFAULT_RECONNECT_MIN_INTERVAL = 100;
     public static readonly DEFAULT_RECONNECT_MAX_INTERVAL = 10000;
     public static readonly DEFAULT_AUTO_RECONNECT = true;
+    public static readonly DEFAULT_DEBUG_LOG = false;
 
     private _idleTimeout: number = Options.DEFAULT_IDLE_TIMEOUT;
     private _pingTimes: number = Options.DEFAULT_PING_TIMES;
     private _autoReconnect: boolean = Options.DEFAULT_AUTO_RECONNECT;
     private _reconnectMinInterval: number = Options.DEFAULT_RECONNECT_MIN_INTERVAL;
     private _reconnectMaxInterval: number = Options.DEFAULT_RECONNECT_MAX_INTERVAL;
+    private _debug: boolean = Options.DEFAULT_DEBUG_LOG;
 
+
+    get debug(): boolean {
+        return this._debug;
+    }
 
     get idleTimeout(): number {
         return this._idleTimeout;

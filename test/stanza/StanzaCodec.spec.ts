@@ -12,7 +12,7 @@ describe('stanzaCodec', () => {
             const stanza = StanzaCodec.decode(Uint8Array.from(input));
             if (stanza != null) {
                 const stanzaBytes = StanzaCodec.encode(stanza);
-                console.log(stanzaBytes);
+                this.log(stanzaBytes);
             }
         }
         done();

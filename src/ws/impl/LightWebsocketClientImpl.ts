@@ -44,7 +44,7 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
     }
 
     connect(): void {
-        console.log('connect...');
+        this.log('connect...');
         this.reconnectHandler.setEnable(true);
         this.ws = this.createWebsocket(this.url, this.protocol);
         this.ws.onopen = () => this.handleConnected();
@@ -86,7 +86,7 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
     }
 
     private handleConnected(): void {
-        console.log(Date() + ' connected');
+        this.log(Date() + ' connected');
         this.connected = true;
         this.startIdleTimer();
         this.startPingTimer();
@@ -98,7 +98,7 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
 
     private handleClosed(): void {
         if (this.connected) {
-            console.log('onClose: ');
+            this.log('onClose: ');
             this.stopPingTimer();
             this.stopIdleTimer();
             this.ws = null;
@@ -113,7 +113,7 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
             return;
         }
 
-        console.log(new Date() + ' handleFrame: ', message.data);
+        this.log(new Date() + ' handleFrame: ', message.data);
         this.startIdleTimer();
         this.startPingTimer();
 
@@ -160,7 +160,7 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
 
 
     private write(o: any): void {
-        console.log(Date() + ' write: ', o);
+        this.log(Date() + ' write: ', o);
         const stanza = StanzaCodec.encode(o);
         if (this.ws != null) {
             this.ws.send(stanza);
@@ -192,11 +192,11 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
 
     private handleError(err: any) {
         this.reconnectHandler.onDisconnect();
-        console.log('handleError: ', err);
+        console.error('handleError: ', err);
     }
 
     private handlePong() {
-        console.log('handlePong');
+        this.log('handlePong');
     }
 
     private handleMessage(message: Message) {
@@ -207,6 +207,12 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
 
     private handleKickoff() {
         this.disconnect();
+    }
+
+    private log(message?: any, ...optionalParams: any[]) {
+        if (this.options.debug) {
+            this.log(message, optionalParams);
+        }
     }
 }
 
