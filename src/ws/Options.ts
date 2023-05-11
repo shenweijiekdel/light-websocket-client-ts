@@ -23,10 +23,6 @@ export class Options {
         return this._debug;
     }
 
-    set debug(value: boolean) {
-        this._debug = value;
-    }
-
     get idleTimeout(): number {
         return this._idleTimeout;
     }
