@@ -15,6 +15,10 @@ export class Options {
     private _debug: boolean = Options.DEFAULT_DEBUG_LOG;
 
 
+    set debug(value: boolean) {
+        this._debug = value;
+    }
+
     get debug(): boolean {
         return this._debug;
     }
