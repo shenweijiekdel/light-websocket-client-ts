@@ -211,7 +211,7 @@ export class LightWebsocketClientImpl extends AbstractLightWebsocketClient imple
 
     private log(message?: any, ...optionalParams: any[]) {
         if (this.options.debug) {
-            this.log(message, optionalParams);
+            console.log(message, optionalParams);
         }
     }
 }
