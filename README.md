@@ -50,7 +50,7 @@ function onMessage(message: string) {
 }
 ```
 
-### Node.js 端
+### Node.js
 
 - 安装依赖
 
